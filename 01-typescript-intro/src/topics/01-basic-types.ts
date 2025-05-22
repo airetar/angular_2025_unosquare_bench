@@ -8,5 +8,5 @@ console.log({
     name, hpPoints, isAlive
 });
 
-export {name};
+export {};
 
