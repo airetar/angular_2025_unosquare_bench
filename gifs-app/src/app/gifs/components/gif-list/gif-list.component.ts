@@ -5,7 +5,8 @@ import { GifItem } from '../../interfaces/gif-item.interface';
 @Component({
   selector: 'gif-list',
   imports: [GifListItemComponent],
-  templateUrl: './gif-list.component.html'
+  templateUrl: './gif-list.component.html',
+  standalone: true
 })
 export class GifListComponent {
   gifs = input.required<GifItem[]>();

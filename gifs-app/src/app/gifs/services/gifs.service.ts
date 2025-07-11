@@ -5,10 +5,10 @@ import { environment } from '@environments/environment';
 import type { GiphyResponse } from '../interfaces/giphy.interfaces';
 import { GifMapper } from '../mapper/gif.mapper';
 import { delay, map, tap } from 'rxjs';
-import { GifHistoryConstants } from '../helpers/constants/GifHistoryKeys.constants';
+import { HISTORY_STORAGE_KEY } from '../helpers/constants/GifHistoryKeys.constants';
 
 function getHIstoryFromStorage() {
-  const storageKeys = localStorage.getItem(GifHistoryConstants.localStorageHistoryKey);
+  const storageKeys = localStorage.getItem(HISTORY_STORAGE_KEY);
   const historyKeys = storageKeys ? JSON.parse(storageKeys) : {};
 
   return historyKeys;
@@ -26,7 +26,7 @@ export class GifsService {
   searchHistoryKeys = computed(() => Object.keys(this.searchHistory()));
 
   saveHistoryToStorage = effect(() => {
-    localStorage.setItem(GifHistoryConstants.localStorageHistoryKey, JSON.stringify(this.searchHistory()));
+    localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(this.searchHistory()));
   })
 
   constructor() {

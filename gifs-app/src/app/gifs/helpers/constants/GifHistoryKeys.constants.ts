@@ -1,3 +1,1 @@
-export const GifHistoryConstants = {
-    localStorageHistoryKey: 'historyKeys'
-}
+export const HISTORY_STORAGE_KEY = 'historyKeys';

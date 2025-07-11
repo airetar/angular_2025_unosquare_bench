@@ -2,7 +2,7 @@ import { GifItem } from './../../interfaces/gif-item.interface';
 import { Component, inject, signal } from '@angular/core';
 import { GifListComponent } from "../../components/gif-list/gif-list.component";
 import { GifsService } from '../../services/gifs.service';
-import { Observer } from 'rxjs';
+import { Observer, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -10,6 +10,7 @@ import { Observer } from 'rxjs';
   templateUrl: './search.component.html'
 })
 export default class SearchComponent {
+  data = new Subject();
   gifsService = inject(GifsService);
   gifs = signal<GifItem[]>([]);
   observer: Observer<GifItem[]> = {
@@ -23,5 +24,6 @@ export default class SearchComponent {
   }
   onSearch(search: string) {
     this.gifsService.searchGifs(search).subscribe(this.observer);
+    
   }
 }
