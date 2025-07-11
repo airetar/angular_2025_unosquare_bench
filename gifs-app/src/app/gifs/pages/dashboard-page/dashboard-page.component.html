@@ -3,8 +3,14 @@
     <div class="flex flex-col relative w-screen">
         <!-- gifs side menu Component -->
         <gifs-side-menu />
-        <div class="ml-[220px] px-4 flex flex-col flex-1 w-[100%-220px] h-full text-slate-800">
+        <div class="ml-[220px] px-4 flex flex-col flex-1 h-full text-slate-800">
             <router-outlet />
         </div>
     </div>
 </div>
+<!-- TODO: improve loading and load event for each image -->
+<!-- @if(gifsService.gifsLoading()) {
+    <div class="flex items-center justify-center loading w-screen h-screen fixed top-0 left-0 bg-[#FFFFFF]">
+        <img src="assets/gifs/loading_gifs.gif" alt="Loading" >
+    </div>
+} -->
