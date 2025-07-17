@@ -5,10 +5,10 @@ import { environment } from '@environments/environment';
 import type { GiphyResponse } from '../interfaces/giphy.interfaces';
 import { GifMapper } from '../mapper/gif.mapper';
 import { delay, map, tap } from 'rxjs';
-import { GifHistoryConstants } from '../helpers/constants/GifHistoryKeys.constants';
+import { STORAGE_HISTORY_KEY } from '../helpers/constants/GifHistoryKeys.constants';
 
 function getHIstoryFromStorage() {
-  const storageKeys = localStorage.getItem(GifHistoryConstants.localStorageHistoryKey);
+  const storageKeys = localStorage.getItem(STORAGE_HISTORY_KEY);
   const historyKeys = storageKeys ? JSON.parse(storageKeys) : {};
 
   return historyKeys;
@@ -22,11 +22,24 @@ export class GifsService {
   trendingGifs = signal<GifItem[]>([]);
   gifsLoading = signal(true);
 
+  trendingGifGroups = computed<GifItem[][]>(() => {
+    const gifGroups = [];
+    for (let i = 0 ; i < this.trendingGifs().length ; i += 3) {
+      const group = [];
+      for (let j = i ; j < i + 3 ; j++) {
+        this.trendingGifs()[j] && group.push(this.trendingGifs()[j]);
+      }
+      gifGroups.push(group);
+    }
+    console.log('gif groups: ', gifGroups);
+    return gifGroups;
+  });
+
   searchHistory = signal<Record<string, GifItem[]>>(getHIstoryFromStorage());
   searchHistoryKeys = computed(() => Object.keys(this.searchHistory()));
 
   saveHistoryToStorage = effect(() => {
-    localStorage.setItem(GifHistoryConstants.localStorageHistoryKey, JSON.stringify(this.searchHistory()));
+    localStorage.setItem(STORAGE_HISTORY_KEY, JSON.stringify(this.searchHistory()));
   })
 
   constructor() {
