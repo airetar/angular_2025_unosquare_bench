@@ -1,4 +1,4 @@
-import { computed, Directive, effect, EventEmitter, Host, HostBinding, HostListener, input, Input, OnChanges, Output, output, signal, SimpleChanges } from '@angular/core';
+import { Directive, effect, EventEmitter, HostBinding, HostListener, input, Output } from '@angular/core';
 
 @Directive({
   selector: '[gifsColors]',
